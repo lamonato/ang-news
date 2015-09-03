@@ -1,3 +1,6 @@
+/* global app:true */
+/* exported app */
+
 'use strict';
 
 /**
@@ -8,28 +11,25 @@
  *
  * Main module of the application.
  */
-angular
-  .module('angNewsApp', [
+
+var app = angular.module('angNewsApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'firebase',
   ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
+        templateUrl: 'views/posts.html',
+        controller: 'PostsCtrl',
+        controllerAs: 'posts'
       })
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+  .constant('FIREBASE_URL', 'https://boiling-heat-8191.firebaseio.com/');
