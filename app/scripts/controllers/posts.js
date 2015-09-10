@@ -1,20 +1,19 @@
 'use strict';
 
-app.controller('PostsCtrl', function ($scope, $firebaseArray, FIREBASE_URL) {
+app.controller('PostsCtrl', function ($scope, $location, Post) {
 
-  var postsRef = new Firebase(FIREBASE_URL).child("posts");
-  var posts = $firebaseArray(postsRef);
-
-  $scope.posts = posts;
+  $scope.posts = Post.all;
   $scope.post = {url: 'http://', title: ''};
 
-  $scope.submitPost = function(item) {
-    posts.$add(item);
-    $scope.post = {url: 'http://', title: ''};
+  $scope.submitPost = function() {
+    Post.create($scope.post).then(function (ref) {
+      $scope.post = {url: 'http://', 'title': ''};
+      $location.path('#/posts/' + ref.name());
+    });
   }
 
-  $scope.deletePost = function (item) {
-    posts.$remove(item);
+  $scope.deletePost = function (post) {
+    Post.delete(post);
   }
 
 });

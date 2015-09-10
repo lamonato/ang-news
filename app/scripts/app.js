@@ -23,14 +23,14 @@ var app = angular.module('angNewsApp', [
   ])
   .config(function ($routeProvider, $locationProvider) {
 
-    $locationProvider.html5Mode(true);
-    $locationProvider.hashPrefix("!");
-
     $routeProvider
       .when('/', {
         templateUrl: 'views/posts.html',
-        controller: 'PostsCtrl',
-        controllerAs: 'posts'
+        controller: 'PostsCtrl'
+      })
+      .when('/posts/:postId', {
+        templateUrl: 'views/showpost.html',
+        controller: 'PostViewCtrl'
       })
       .otherwise({
         redirectTo: '/'
